@@ -1,0 +1,27 @@
+<div class="info">
+    <div class="left-side">
+      <h1>Lista de Personas</h1>
+      <ul class="lista">
+        <li *ngFor="let persona of personas">
+          {{ persona.nombre }} - {{ persona.edad }} años
+        </li>
+      </ul>
+    </div>
+    <div class="right-side">
+      <h2>Agregar Persona</h2>
+      <form (ngSubmit)="addPersona()">
+        <div class="input-container">
+          <input type="text" [(ngModel)]="persona.nombre" name="nombre" required>
+          <label class="label">Nombre</label>
+          <span class="underline"></span>
+        </div>
+        <div class="input-container">
+          <input type="number" [(ngModel)]="persona.edad" name="edad" required>
+          <label class="label">Edad</label>
+          <span class="underline"></span>
+        </div>
+        <button class="btn-enviar" type="submit">Guardar</button>
+      </form>
+    </div>
+  </div>
+  
