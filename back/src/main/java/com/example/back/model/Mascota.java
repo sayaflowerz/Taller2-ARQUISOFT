@@ -8,8 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 @Entity
+@XmlRootElement
 public class Mascota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,29 +1,28 @@
 package com.example.back.model;
 
-import jakarta.persistence.CascadeType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
-import java.util.*;
-
-@XmlRootElement
 @Entity
+@XmlRootElement
 public class Persona {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // O la estrategia que prefieras
     private Long id;
+
     @Column(name = "nombre", nullable = false)
     private String nombre;
     @Column(name = "edad", nullable = false)
     private int edad;
 
-    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL)
-    private List<Mascota> mascotas = new ArrayList<>();
+    // Getters y Setters
 
     public Long getId() {
         return id;
@@ -49,19 +48,10 @@ public class Persona {
         this.edad = edad;
     }
 
-    public List<Mascota> getMascotas() {
-        return mascotas;
-    }
-
-    public void setMascotas(List<Mascota> mascotas) {
-        this.mascotas = mascotas;
-    }
-
-    public Persona(Long id, String nombre, int edad, List<Mascota> mascotas) {
+    public Persona(Long id, String nombre, int edad) {
         this.id = id;
         this.nombre = nombre;
         this.edad = edad;
-        this.mascotas = mascotas;
     }
 
     public Persona() {

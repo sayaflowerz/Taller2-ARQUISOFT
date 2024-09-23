@@ -1,1 +1,8 @@
 POST http://localhost:8080/personas
+Accept: application/xml
+Content-Type: application/xml
+
+<persona>
+  <nombre>Juan</nombre>
+  <edad>25</edad>
+</persona>

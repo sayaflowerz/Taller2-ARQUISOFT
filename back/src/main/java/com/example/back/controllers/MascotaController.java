@@ -1,6 +1,7 @@
 package com.example.back.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,23 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 
 import com.example.back.model.Mascota;
-import com.example.back.repository.MascotaRepository;
 import com.example.back.services.MascotaService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/mascotas")
-@CrossOrigin(origins = "http://localhost:4200")
 public class MascotaController {
 
     @Autowired
     private MascotaService mascotaService;
 
     @PostMapping(consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
-    public Mascota createMascota(@RequestBody Mascota mascota) {
-        return mascotaService.save(mascota);
+    public ResponseEntity<Mascota> createMascota(@RequestBody Mascota mascota) {
+        Mascota nuevaMascota = mascotaService.save(mascota);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevaMascota);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
+    @GetMapping(produces = "application/xml")
     public List<Mascota> getAllMascotas() {
         return mascotaService.findAll();
     }

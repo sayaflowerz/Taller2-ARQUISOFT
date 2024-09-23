@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Mascota } from '../model/mascota';
-
 
 @Injectable({
   providedIn: 'root'
@@ -12,28 +11,27 @@ export class MascotaService {
 
   constructor(private http: HttpClient) {}
 
+  // Convierte la Mascota a XML para enviar en la petición
   convertMascotaToXML(mascota: Mascota): string {
-    const xmlMascota = `<mascota>
-                          <nombre>${mascota.nombre}</nombre>
-                          <raza>${mascota.raza}</raza>
-                          <edad>${mascota.edad}</edad>
-                          <personaId>${mascota.personaId}</personaId>
-                        </mascota>`;
-    return xmlMascota;
-  }
-  
-  createMascota(mascota: Mascota): Observable<Mascota> {
-    const xmlMascota = this.convertMascotaToXML(mascota);
-    return this.http.post<Mascota>(this.apiUrl, xmlMascota, { 
-      headers: { 'Content-Type': 'application/xml' } 
-    });
+    return `
+      <Mascota>
+        <nombre>${mascota.nombre}</nombre>
+        <raza>${mascota.raza}</raza>
+        <edad>${mascota.edad}</edad>
+        <personaId>${mascota.personaId}</personaId>
+      </Mascota>
+    `;
   }
 
-  getMascotas(): Observable<Mascota[]> {
-    return this.http.get<Mascota[]>(this.apiUrl, { 
-      headers: { 'Accept': 'application/xml' } 
-    });
+  // Envía la petición POST con XML
+  createMascota(mascota: Mascota): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/xml' });
+    const xmlMascota = this.convertMascotaToXML(mascota);
+    return this.http.post(this.apiUrl, xmlMascota, { headers, responseType: 'text' });
   }
-  
-  
+
+  // Obtiene la lista de mascotas en XML
+  getMascotas(): Observable<any> {
+    return this.http.get(this.apiUrl, { headers: { 'Accept': 'application/xml' }, responseType: 'text' });
+  }
 }

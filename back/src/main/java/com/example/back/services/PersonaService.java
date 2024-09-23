@@ -15,16 +15,16 @@ public class PersonaService {
     @Autowired
     private PersonaRepository personaRepository;
 
-    public Persona save(Persona persona) {
-        return personaRepository.save(persona);
-    }
-
     public List<Persona> findAll() {
         return personaRepository.findAll();
     }
 
     public Optional<Persona> findById(Long id) {
         return personaRepository.findById(id);
+    }
+
+    public Persona save(Persona persona) {
+        return personaRepository.save(persona);
     }
 
     public void deleteById(Long id) {

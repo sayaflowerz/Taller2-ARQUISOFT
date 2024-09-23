@@ -1,42 +1,54 @@
 <div class="info">
-    <div class="left-side">
-      <h1>Lista de Mascotas</h1>
-      <ul class="lista">
-        <li *ngFor="let mascota of mascotas">
-          <div class="card-image-container">
-            <img src="assets/dog-placeholder.jpg" alt="{{ mascota.nombre }}">
-          </div>
-          {{ mascota.nombre }} - {{ mascota.raza }} - {{ mascota.edad }} años
-        </li>
-      </ul>
-    </div>
-    <div class="right-side">
-      <h2>Agregar Mascota</h2>
-      <form (ngSubmit)="addMascota()">
-        <div class="input-container">
-          <input type="text" [(ngModel)]="mascota.nombre" name="nombre" required>
-          <label class="label">Nombre</label>
-          <span class="underline"></span>
+  <div class="left-side">
+    <h1>Lista de Mascotas</h1>
+    <ul class="lista">
+      <li *ngFor="let mascota of mascotas">
+        <div class="card-image-container">
+          <!-- Imagen por defecto para las mascotas -->
+          <img src="assets/pets.png" alt="{{ mascota.nombre }}">
         </div>
-        <div class="input-container">
-          <input type="text" [(ngModel)]="mascota.raza" name="raza" required>
-          <label class="label">Raza</label>
-          <span class="underline"></span>
-        </div>
-        <div class="input-container">
-          <input type="number" [(ngModel)]="mascota.edad" name="edad" required>
-          <label class="label">Edad</label>
-          <span class="underline"></span>
-        </div>
-        <div class="input-container">
-          <select [(ngModel)]="mascota.personaId" name="personaId" required>
-            <option *ngFor="let persona of personas" [value]="persona.id">{{ persona.nombre }}</option>
-          </select>
-          <label class="label">Dueño</label>
-          <span class="underline"></span>
-        </div>
-        <button class="btn-enviar" type="submit">Guardar</button>
-      </form>
-    </div>
+        <!-- Mostramos los detalles de la mascota -->
+        {{ mascota.nombre }} - {{ mascota.raza }} - {{ mascota.edad }} años
+      </li>
+    </ul>
   </div>
-  
+
+  <div class="right-side">
+    <h2>Agregar Mascota</h2>
+    <!-- Formulario para agregar una nueva mascota -->
+    <form (ngSubmit)="addMascota()">
+      <!-- Campo para el nombre de la mascota -->
+      <div class="input-container">
+        <input type="text" [(ngModel)]="mascota.nombre" name="nombre" required>
+        <label class="label">Nombre</label>
+        <span class="underline"></span>
+      </div>
+
+      <!-- Campo para la raza de la mascota -->
+      <div class="input-container">
+        <input type="text" [(ngModel)]="mascota.raza" name="raza" required>
+        <label class="label">Raza</label>
+        <span class="underline"></span>
+      </div>
+
+      <!-- Campo para la edad de la mascota -->
+      <div class="input-container">
+        <input type="number" [(ngModel)]="mascota.edad" name="edad" required>
+        <label class="label">Edad</label>
+        <span class="underline"></span>
+      </div>
+
+      <!-- Campo para seleccionar el dueño de la mascota -->
+      <div class="input-container">
+        <select [(ngModel)]="mascota.personaId" name="personaId" required>
+          <option *ngFor="let persona of personas" [value]="persona.id">{{ persona.nombre }}</option>
+        </select>
+        <label class="label">Dueño</label>
+        <span class="underline"></span>
+      </div>
+
+      <!-- Botón para guardar la nueva mascota -->
+      <button class="btn-enviar" type="submit">Guardar</button>
+    </form>
+  </div>
+</div>

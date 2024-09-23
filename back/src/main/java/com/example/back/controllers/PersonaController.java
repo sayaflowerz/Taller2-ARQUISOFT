@@ -1,6 +1,7 @@
 package com.example.back.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,23 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 
 import com.example.back.model.Persona;
-import com.example.back.repository.PersonaRepository;
 import com.example.back.services.PersonaService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/personas")
-@CrossOrigin(origins = "http://localhost:4200")
 public class PersonaController {
 
     @Autowired
     private PersonaService personaService;
 
     @PostMapping(consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
-    public Persona createPersona(@RequestBody Persona persona) {
-        return personaService.save(persona);
+    public ResponseEntity<Persona> createPersona(@RequestBody Persona persona) {
+        Persona nuevaPersona = personaService.save(persona);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevaPersona);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
+    @GetMapping(produces = "application/xml")
     public List<Persona> getAllPersonas() {
         return personaService.findAll();
     }

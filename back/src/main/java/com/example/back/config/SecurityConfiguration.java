@@ -38,13 +38,12 @@ public class SecurityConfiguration {
         public WebMvcConfigurer corsConfigurer() {
                 return new WebMvcConfigurer() {
                         @Override
-                        public void addCorsMappings(@NonNull CorsRegistry registry) {
+                        public void addCorsMappings(CorsRegistry registry) {
                                 registry.addMapping("/**")
                                                 .allowedOrigins("http://localhost:4200")
-                                                .allowedMethods("PUT", "DELETE", "GET", "POST", "PATCH")
-                                                .allowedHeaders("*")
-                                                .allowCredentials(true);
+                                                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
                         }
                 };
         }
+
 }
