@@ -64,8 +64,7 @@ public class Mascota {
         this.persona = persona;
     }
 
-    public Mascota(Long id, String nombre, String raza, int edad, Persona persona) {
-        this.id = id;
+    public Mascota(String nombre, String raza, int edad, Persona persona) {
         this.nombre = nombre;
         this.raza = raza;
         this.edad = edad;

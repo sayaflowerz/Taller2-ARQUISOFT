@@ -11,7 +11,7 @@ import { Persona } from '../model/persona';
 })
 export class MascotaComponent implements OnInit {
   mascotas: Mascota[] = [];
-  mascota: Mascota = new Mascota();
+  mascota: Mascota = new Mascota( );
   personas: Persona[] = [];
 
   constructor(private mascotaService: MascotaService, private personaService: PersonaService) {}
@@ -25,15 +25,14 @@ export class MascotaComponent implements OnInit {
   
       for (let i = 0; i < mascotaNodes.length; i++) {
         const mascota = new Mascota();
-        const idNode = mascotaNodes[i].getElementsByTagName('id')[0];
+        
         const nombreNode = mascotaNodes[i].getElementsByTagName('nombre')[0];
         const razaNode = mascotaNodes[i].getElementsByTagName('raza')[0];
         const edadNode = mascotaNodes[i].getElementsByTagName('edad')[0];
         const personaIdNode = mascotaNodes[i].getElementsByTagName('personaId')[0];
   
         // Verificar si los nodos existen antes de acceder a sus propiedades
-        if (idNode && nombreNode && razaNode && edadNode && personaIdNode) {
-          mascota.id = Number(idNode.textContent);
+        if ( nombreNode && razaNode && edadNode && personaIdNode) {
           mascota.nombre = nombreNode.textContent || '';
           mascota.raza = razaNode.textContent || '';
           mascota.edad = Number(edadNode.textContent);
@@ -64,8 +63,9 @@ export class MascotaComponent implements OnInit {
   
   
 
-  addMascota() {
+  addMascota(nombre: string, raza: string, edad: number, personaId: number) {
     this.mascotaService.createMascota(this.mascota).subscribe(
+      
       response => {
         console.log('Mascota guardada correctamente', response);
         this.mascotas.push(response);

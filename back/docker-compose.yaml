@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  spring-app:
+    image: spring-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+      - "9091:9091"
+    environment:
+      - SPRING_PROFILES_ACTIVE: prod
+      - SPRING_DATASOURCE_URL: jdbc:h2:mem:testdb
+      - SPRING_DATASOURCE_DRIVERCLASSNAME: org.h2.Driver
+      - SPRING_DATASOURCE_USERNAME: sa
+      - SPRING_DATASOURCE_PASSWORD: password
+      - SPRING_JPA_DATABASEPLATFORM: org.hibernate.dialect.H2Dialect
+      - SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      - SPRING_H2_CONSOLE_ENABLED: true
+      - SPRING_H2_CONSOLE_SETTINGS_WEB_ALLOW_OTHERS: true
+    volumes:
+      - ./logs:/app/logs
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/testdb

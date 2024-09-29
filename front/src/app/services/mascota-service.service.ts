@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Mascota } from '../model/mascota';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MascotaService {
-  private apiUrl = 'http://localhost:8080/mascotas';
+  private apiUrl = `${environment.serverUrl}/mascotas`;;
 
   constructor(private http: HttpClient) {}
 
@@ -25,6 +26,7 @@ export class MascotaService {
 
   // Envía la petición POST con XML
   createMascota(mascota: Mascota): Observable<any> {
+    console.log(mascota);
     const headers = new HttpHeaders({ 'Content-Type': 'application/xml' });
     const xmlMascota = this.convertMascotaToXML(mascota);
     return this.http.post(this.apiUrl, xmlMascota, { headers, responseType: 'text' });

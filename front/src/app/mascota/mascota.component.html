@@ -3,10 +3,6 @@
     <h1>Lista de Mascotas</h1>
     <ul class="lista">
       <li *ngFor="let mascota of mascotas">
-        <div class="card-image-container">
-          <!-- Imagen por defecto para las mascotas -->
-          <img src="assets/pets.png" alt="{{ mascota.nombre }}">
-        </div>
         <!-- Mostramos los detalles de la mascota -->
         {{ mascota.nombre }} - {{ mascota.raza }} - {{ mascota.edad }} años
       </li>
@@ -16,7 +12,7 @@
   <div class="right-side">
     <h2>Agregar Mascota</h2>
     <!-- Formulario para agregar una nueva mascota -->
-    <form (ngSubmit)="addMascota()">
+    <form (ngSubmit)="addMascota(mascota.nombre,mascota.raza,mascota.edad,mascota.personaId)">
       <!-- Campo para el nombre de la mascota -->
       <div class="input-container">
         <input type="text" [(ngModel)]="mascota.nombre" name="nombre" required>

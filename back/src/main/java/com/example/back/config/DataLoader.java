@@ -23,9 +23,9 @@ public class DataLoader {
             personaRepository.save(pedro);
 
             // Insertar mascotas asociadas a personas
-            mascotaRepository.save(new Mascota(1l, "Firulais", "Perro", 5, juan));
-            mascotaRepository.save(new Mascota(2l, "Michi", "Gato", 3, ana));
-            mascotaRepository.save(new Mascota(3l, "Paco", "Perro", 7, pedro));
+            mascotaRepository.save(new Mascota("Firulais", "Perro", 5, juan));
+            mascotaRepository.save(new Mascota("Michi", "Gato", 3, ana));
+            mascotaRepository.save(new Mascota("Paco", "Perro", 7, pedro));
         };
     }
 }

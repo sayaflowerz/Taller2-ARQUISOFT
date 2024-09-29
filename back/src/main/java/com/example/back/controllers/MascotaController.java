@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 
+import com.example.back.DTO.MascotaDTO;
 import com.example.back.model.Mascota;
+import com.example.back.model.Persona;
 import com.example.back.services.MascotaService;
+import com.example.back.services.PersonaService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -24,16 +27,26 @@ public class MascotaController {
 
     @Autowired
     private MascotaService mascotaService;
+    @Autowired
+    private PersonaService personaService;
 
     @PostMapping(consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Mascota> createMascota(@RequestBody Mascota mascota) {
-        Mascota nuevaMascota = mascotaService.save(mascota);
+    public ResponseEntity<Mascota> createMascota(@RequestBody MascotaDTO mascota) {
+        Persona p = personaService.findById((long) mascota.getPersonaId()).get();
+        Mascota nuevaMascota = new Mascota(mascota.getNombre(), mascota.getRaza(), mascota.getEdad(), p);
+        mascotaService.save(nuevaMascota);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaMascota);
     }
 
     @GetMapping(produces = "application/xml")
-    public List<Mascota> getAllMascotas() {
-        return mascotaService.findAll();
+    public List<MascotaDTO> getAllMascotas() {
+        List<Mascota> mascotas = mascotaService.findAll();
+        List<MascotaDTO> mascotasDTO = new ArrayList<>();
+        for (Mascota m : mascotas) {
+            mascotasDTO.add(
+                    new MascotaDTO(m.getNombre(), m.getRaza(), m.getEdad(), (int) m.getPersona().getId().intValue()));
+        }
+        return mascotasDTO;
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_XML_VALUE)
